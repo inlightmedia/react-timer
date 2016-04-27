@@ -14,12 +14,15 @@ require('style!css!sass!applicationStyles');
 $(document).foundation();
 
 var Main = require('Main');
+var Countdown = require('Countdown');
+var Timer = require('Timer');
+
 
 ReactDOM.render(
 	<Router history={hashHistory}>
 		<Route path="/" component={Main}>
-			{/*<IndexRoute component={}/>  This is the default route.*/}
-			{/*<Route path="" component={} />			*/}
+			<IndexRoute component={Timer}/>  {/*This is the default route.*/}
+			<Route path="/countdown" component={Countdown} />
 		</Route>
 	</Router>,
 	document.getElementById('app')
