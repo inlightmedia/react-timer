@@ -25,11 +25,33 @@ describe('Countdown', () => {
 
 		});
 
-		it('should never be negative', (done) => { // pass in done so that the test will not finish until async code completes 
+		it('should never be negative', (done) => { // pass in done so that the test will not finish until async code completes
 			var countdown = TestUtils.renderIntoDocument(<Countdown />);
 			countdown.handleSetCountdown(1);
 			expect(countdown.state.count).toBe(1);
 			expect(countdown.state.countdownStatus).toBe('started');
+			setTimeout(()=>{
+				expect(countdown.state.count).toBe(0);
+				done();
+			}, 3010);
+		});
+
+		it('should pause countdown on paused status', (done) => { // pass in done so that the test will not finish until async code completes
+			var countdown = TestUtils.renderIntoDocument(<Countdown />);
+			countdown.handleSetCountdown(1);
+			countdown.handleStatusChange('paused');
+			expect(countdown.state.countdownStatus).toBe('paused');
+			setTimeout(()=>{
+				expect(countdown.state.count).toBe(1);
+				done();
+			}, 3010);
+		});
+
+		it('should stop countdown on stopped status', (done) => { // pass in done so that the test will not finish until async code completes
+			var countdown = TestUtils.renderIntoDocument(<Countdown />);
+			countdown.handleSetCountdown(1);
+			countdown.handleStatusChange('stopped');
+			expect(countdown.state.countdownStatus).toBe('stopped');
 			setTimeout(()=>{
 				expect(countdown.state.count).toBe(0);
 				done();
