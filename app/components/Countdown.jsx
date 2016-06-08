@@ -16,8 +16,26 @@ var Countdown = React.createClass({
 			this.setState({
 				count: newCount >= 0 ? newCount : 0
 			});
+			if (newCount === 0 ) {
+				this.setState({
+					countdownStatus: 'stopped'
+				});
+				// animate the circle???
+			}
 		}, 1000);
+
 	},
+	componentWillUnmount: function () {
+		console.log('component Did Unmount');
+		clearInterval(this.timer);
+		this.timer = null;
+	},
+	// componentWillMount: function () {
+	// 	console.log('Component is about to mount but hasn\'t yet.');
+	// },
+	// componentDidMount: function () {
+	// 	console.log('Component did mount.');
+	// },
 	componentDidUpdate: function (prevProps, prevState) {  // This gets called by all react apps when the state or props change change
 		if (this.state.countdownStatus !== prevState.countdownStatus) {
 			switch(this.state.countdownStatus) {
